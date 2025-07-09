@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35825.156 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WMS System", "WMS System\WMS System.csproj", "{F3E9817A-36AD-4F22-B759-CDF67783238E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DB4B1E97-D0DB-4010-823A-13BA6B7C037C} = {DB4B1E97-D0DB-4010-823A-13BA6B7C037C}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WMS Class Library", "WMS Class Library\WMS Class Library.csproj", "{DB4B1E97-D0DB-4010-823A-13BA6B7C037C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F3E9817A-36AD-4F22-B759-CDF67783238E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3E9817A-36AD-4F22-B759-CDF67783238E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3E9817A-36AD-4F22-B759-CDF67783238E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3E9817A-36AD-4F22-B759-CDF67783238E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB4B1E97-D0DB-4010-823A-13BA6B7C037C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB4B1E97-D0DB-4010-823A-13BA6B7C037C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB4B1E97-D0DB-4010-823A-13BA6B7C037C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB4B1E97-D0DB-4010-823A-13BA6B7C037C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2BAFD17F-7B23-4B56-AC37-5A3CB03AFA36}
+	EndGlobalSection
+EndGlobal
