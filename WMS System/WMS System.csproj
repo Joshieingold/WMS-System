@@ -11,6 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Fonts\Dosis.ttf" />
     <None Remove="Assets\Gemini_Generated_Image_z6sut4z6sut4z6su %281%29.png" />
   </ItemGroup>
 
@@ -23,7 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\Gemini_Generated_Image_z6sut4z6sut4z6su (1).png">
+    <Resource Include="Assets\Fonts\Dosis.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Images\logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

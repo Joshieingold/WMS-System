@@ -4,7 +4,7 @@ namespace WMS_Class_Library
 
     public class DatabaseConnection
     {
-        string connectionString = "Host=localhost;Username=postgres;Password=;Database=postgres";
+        string connectionString = "Host=localhost;Username=postgres;Password=Koreanishard2424$$;Database=postgres";
     
     public void ReadAllData(string databaseName)
         {

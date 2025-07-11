@@ -5,13 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WMS_System"
         mc:Ignorable="d"
-        Title="Welcome" Height="450" Width="800" Background="#FF232323">
+        Title="Welcome" Height="500" Width="900" Background="#181735">
+    <Window.Resources>
+        <Storyboard x:Key="FadeInStoryboard">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                         From="0" To="1" Duration="0:0:0.3"/>
+        </Storyboard>
+    </Window.Resources>
+
     <Grid>
-        <Image Margin="10,324,690,10" Source="/Assets/Gemini_Generated_Image_z6sut4z6sut4z6su (1).png" Stretch="Fill"/>
-        <Grid Margin="0,174,0,0" HorizontalAlignment="Center" Width="200" Height="86" VerticalAlignment="Top" Background="White">
-            <Label Content="Query Database" Foreground="Black" HorizontalAlignment="Center" Width="98" Height="27" VerticalAlignment="Top" Background="White"/>
-            <TextBox x:Name="query_database_textbox" Background="#FF0F3300" Margin="0,31,0,0" Height="19" VerticalAlignment="Top" HorizontalAlignment="Center" Width="116" BorderBrush="#FF081500" Foreground="#FF2FDE00"></TextBox>
-            <Button x:Name="submit_button" Content="Add" Margin="0,55,0,0" Click="Button_Click" Background="#FF0F3300" BorderBrush="#FF081500" Foreground="#FF2FDE00" Height="20" VerticalAlignment="Top" HorizontalAlignment="Center" Width="116"/>
+        <!-- Grid structure: Row 0 for navbar, Row 1 for main content -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!-- NAVIGATION BAR -->
+        <Grid Background="#0F0F2B" Grid.Row="0" Panel.ZIndex="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Buttons to change content -->
+            <TextBlock Text="J-WMS" Foreground="White" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Medium" FontFamily="MS Reference Sans Serif" />
+            <Button Content="Home" Click="Home_Click" Background="Transparent" BorderThickness="0" Foreground="White" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="MS Reference Sans Serif"/>
+            <Button Content="Receive" Click="Receive_Click" Background="Transparent" BorderThickness="0"  Foreground="White" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="MS Reference Sans Serif"/>
+            <TextBlock Text="Orders" Foreground="White" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="MS Reference Sans Serif"/>
+            <TextBlock Text="Move" Foreground="White" Grid.Column="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="MS Reference Sans Serif"/>
         </Grid>
+
+        <!-- MAIN CONTENT AREA -->
+        <ContentControl x:Name="MainContent" Grid.Row="1"/>
     </Grid>
 </Window>
