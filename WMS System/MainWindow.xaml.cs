@@ -49,4 +49,9 @@ public partial class MainWindow : Window
         fadeIn.Begin();
     }
 
+    private void Transfer_Click(object sender, RoutedEventArgs e)
+    {
+        MainContent.Content = new TransferView();
+        FadeInContent();
+    }
 }
