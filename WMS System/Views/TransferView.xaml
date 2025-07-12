@@ -3,10 +3,135 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:WMS_System.Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800">
+
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackPanel Grid.Column="1" Margin="10" VerticalAlignment="Top">
+            <TextBlock Text="Transfer Devices" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Foreground="White"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Margin="0,0,0,10" Grid.Row="1">
+            <!-- Serial input field -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="LPN"  HorizontalAlignment="Center" Foreground="White"/>
+                    <TextBox Height="17" x:Name="LpnInputBox" Grid.Column="0" Grid.Row="1">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Background" Value="#FE6584"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Padding" Value="4,2"/>
+                                <Setter Property="FontSize" Value="10"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Margin" Value="5,2,5,2"/>
+                                <Setter Property="CaretBrush" Value="White"/> <!-- Changed from Transparent to White -->
+                                <Setter Property="IsReadOnly" Value="False"/>
+                                <Setter Property="Cursor" Value="IBeam"/>
+                            </Style>
+                        </TextBox.Style>
+                        <TextBox.Template>
+                            <ControlTemplate TargetType="TextBox">
+                                <Border Height="15" CornerRadius="6" Background="{TemplateBinding Background}" >
+                                    <ScrollViewer x:Name="PART_ContentHost" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </TextBox.Template>
+                    </TextBox>
+                </Grid>
+                
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Input" Grid.Row="0" Foreground="White" HorizontalAlignment="Center"/>
+                    <TextBox x:Name="SerialInputBox" Grid.Row="1" Height="17" Margin="20,0,20,0" KeyDown="SerialInputBox_KeyDown" FontSize="10">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Background" Value="#FE6584"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Padding" Value="4,2"/>
+                                <Setter Property="FontSize" Value="10"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Margin" Value="5,2,5,2"/>
+                                <Setter Property="CaretBrush" Value="White"/>
+                                <!-- Changed from Transparent to White -->
+                                <Setter Property="IsReadOnly" Value="False"/>
+                                <Setter Property="Cursor" Value="IBeam"/>
+                            </Style>
+                        </TextBox.Style>
+                        <TextBox.Template>
+                            <ControlTemplate TargetType="TextBox">
+                                <Border Height="15" CornerRadius="6" Background="{TemplateBinding Background}" >
+                                    <ScrollViewer x:Name="PART_ContentHost" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </TextBox.Template>
+                    
+                    </TextBox>
+                </Grid>
+
+            </Grid>
             
+
+            <!-- Scrollable dynamic serial rows -->
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Height="286">
+                <StackPanel x:Name="SerialStackPanel" MinHeight="0" />
+            </ScrollViewer>
+            
+        </StackPanel>
+
+        <!-- Submit Button -->
+        <StackPanel Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom" Margin="4">
+            <Button Content="Submit"  Width="150"  Click="SubmitButton_Click" Foreground="White">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="MS Reference Sans Serif"/>
+                        <Setter Property="Background" Value="#FE6584"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4C70"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="100" Height="25" CornerRadius="12" Background="{TemplateBinding Background}" >
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
     </Grid>
 </UserControl>
