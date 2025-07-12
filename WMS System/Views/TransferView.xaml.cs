@@ -1,18 +1,9 @@
 ﻿using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace WMS_System.Views
 {
@@ -35,35 +26,54 @@ namespace WMS_System.Views
                 string serial = SerialInputBox.Text.Trim();
                 if (!string.IsNullOrWhiteSpace(serial))
                 {
-                    string inventory = GetInventoryFromDatabase(serial);
-                    AddSerialRow(serial, inventory);
+                    var data = GetDeviceData(serial);
+                    if (data.HasValue)
+                    {
+                        AddSerialRow(serial, data.Value.SubInventory, data.Value.Locator);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Serial not found in NB1 inventory.");
+                    }
+
                     SerialInputBox.Clear();
                 }
             }
         }
 
-        private string GetInventoryFromDatabase(string serial)
+        private (string SubInventory, string Locator)? GetDeviceData(string serial)
         {
             try
             {
                 using var conn = new NpgsqlConnection(connectionString);
                 conn.Open();
 
-                using var cmd = new NpgsqlCommand("SELECT sub_inventory FROM inventory WHERE serial = @serial", conn);
+                using var cmd = new NpgsqlCommand(@"
+                    SELECT sub_inventory, locator 
+                    FROM inventory 
+                    WHERE serial = @serial AND organization = 'NB1'", conn);
+
                 cmd.Parameters.AddWithValue("serial", serial);
 
-                var result = cmd.ExecuteScalar();
-                return result?.ToString() ?? "Not Found";
+                using var reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    return (
+                        reader["sub_inventory"].ToString(),
+                        reader["locator"].ToString()
+                    );
+                }
+
+                return null;
             }
             catch
             {
-                return "DB Error";
+                return null;
             }
         }
 
-        private void AddSerialRow(string serial, string inventory)
+        private void AddSerialRow(string serial, string inventory, string locator)
         {
-            // Create a Border with purple rounded background
             var border = new Border
             {
                 Background = new SolidColorBrush(Color.FromRgb(58, 57, 82)), // Purple
@@ -76,53 +86,67 @@ namespace WMS_System.Views
 
             var serialBox = new TextBox { Width = 200, Margin = new Thickness(5), Text = serial, IsReadOnly = true };
             var inventoryBox = new TextBox { Width = 150, Margin = new Thickness(5), Text = inventory, IsReadOnly = true };
+            var locatorBox = new TextBox { Width = 150, Margin = new Thickness(5), Text = locator, IsReadOnly = true };
             var removeButton = new Button { Content = "X", Width = 20, Margin = new Thickness(5) };
 
             removeButton.Click += (s, e) => SerialStackPanel.Children.Remove(border);
 
             rowPanel.Children.Add(serialBox);
             rowPanel.Children.Add(inventoryBox);
+            rowPanel.Children.Add(locatorBox);
             rowPanel.Children.Add(removeButton);
 
             border.Child = rowPanel;
 
-            // Insert at the top instead of adding to the end
             SerialStackPanel.Children.Insert(0, border);
         }
 
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
+            string lpn = LpnInputBox.Text.Trim();
+            string newSubInventory = InventoryTextBox.Text.Trim();
+            string newLocation = LocationTextBox.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(lpn) || string.IsNullOrWhiteSpace(newSubInventory) || string.IsNullOrWhiteSpace(newLocation))
+            {
+                MessageBox.Show("All fields (LPN, Sub-Inventory, Location) must be filled.");
+                return;
+            }
+
             int count = 0;
 
             using var conn = new NpgsqlConnection(connectionString);
             conn.Open();
 
-            foreach (StackPanel row in SerialStackPanel.Children)
+            foreach (Border border in SerialStackPanel.Children)
             {
-                if (row.Children[0] is TextBox serialBox)
+                if (border.Child is StackPanel row &&
+                    row.Children[0] is TextBox serialBox)
                 {
                     string serial = serialBox.Text;
-                    string locator = "FLOOR";  // Example hardcoded
-                    string organization = "NB1"; // Example hardcoded
-                    int deviceId = 1234; // TODO: Let user select device ID
 
                     using var cmd = new NpgsqlCommand(@"
-                        INSERT INTO inventory (device_id, sub_inventory, serial, locator, organization)
-                        VALUES (@device_id, @sub_inventory, @serial, @locator, @organization)
-                        ON CONFLICT (serial) DO NOTHING", conn);
+                        UPDATE inventory
+                        SET sub_inventory = @sub_inventory,
+                            locator = @locator,
+                            organization = 'NB1',
+                            lpn = @lpn
+                        WHERE serial = @serial AND organization = 'NB1'", conn);
 
-                    cmd.Parameters.AddWithValue("device_id", deviceId);
-                    cmd.Parameters.AddWithValue("sub_inventory", "TRIAGE");
+                    cmd.Parameters.AddWithValue("sub_inventory", newSubInventory);
+                    cmd.Parameters.AddWithValue("locator", newLocation);
                     cmd.Parameters.AddWithValue("serial", serial);
-                    cmd.Parameters.AddWithValue("locator", locator);
-                    cmd.Parameters.AddWithValue("organization", organization);
+                    cmd.Parameters.AddWithValue("lpn", lpn);
 
                     count += cmd.ExecuteNonQuery();
                 }
             }
 
-            MessageBox.Show($"{count} serial(s) transferred.");
+            MessageBox.Show($"{count} serial(s) updated.");
             SerialStackPanel.Children.Clear();
+            LpnInputBox.Clear();
+            InventoryTextBox.Clear();
+            SerialInputBox.Clear();
         }
     }
 }
