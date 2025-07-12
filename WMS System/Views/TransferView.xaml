@@ -27,7 +27,8 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
                     <Grid.RowDefinitions>
@@ -68,9 +69,46 @@
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
+
                     </Grid.RowDefinitions>
                     <TextBlock Text="Input" Grid.Row="0" Foreground="White" HorizontalAlignment="Center"/>
                     <TextBox x:Name="SerialInputBox" Grid.Row="1" Height="17" Margin="20,0,20,0" KeyDown="SerialInputBox_KeyDown" FontSize="10">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Background" Value="#FE6584"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Padding" Value="4,2"/>
+                                <Setter Property="FontSize" Value="10"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Margin" Value="5,2,5,2"/>
+                                <Setter Property="CaretBrush" Value="White"/>
+                                <!-- Changed from Transparent to White -->
+                                <Setter Property="IsReadOnly" Value="False"/>
+                                <Setter Property="Cursor" Value="IBeam"/>
+                            </Style>
+                        </TextBox.Style>
+                        <TextBox.Template>
+                            <ControlTemplate TargetType="TextBox">
+                                <Border Height="15" CornerRadius="6" Background="{TemplateBinding Background}" >
+                                    <ScrollViewer x:Name="PART_ContentHost" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </TextBox.Template>
+
+                    </TextBox>
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="New Location" Grid.Row="0" Foreground="White" HorizontalAlignment="Center"/>
+                    <TextBox x:Name="InventoryTextBox" Grid.Row="1" Height="16" KeyDown="SerialInputBox_KeyDown" FontSize="10" Margin="5,0,5,0">
                         <TextBox.Style>
                             <Style TargetType="TextBox">
                                 <Setter Property="Background" Value="#FE6584"/>
