@@ -86,7 +86,8 @@ namespace WMS_System.Views
 
             border.Child = rowPanel;
 
-            SerialStackPanel.Children.Add(border);
+            // Insert at the top instead of adding to the end
+            SerialStackPanel.Children.Insert(0, border);
         }
 
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
