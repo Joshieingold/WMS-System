@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="WMS_System.Views.PickControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Height="Auto" Width="Auto"
+             >
+    <StackPanel Margin="10">
+
+        <!-- Top Grid: LPN and Serial Input -->
+        <Grid Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- LPN StackPanel -->
+            <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,10,0">
+                <TextBlock Text="LPN:" Foreground="White" Margin="0,0,0,3" HorizontalAlignment="Center"/>
+                <TextBox x:Name="LpnInputBox" />
+            </StackPanel>
+
+            <!-- Serial Input StackPanel -->
+            <StackPanel Grid.Column="2" Grid.ColumnSpan="2">
+                <TextBlock Text="Serial Input:" Foreground="White" Margin="0,0,0,3" HorizontalAlignment="Center"/>
+                <TextBox x:Name="SerialInputBox" KeyDown="SerialInputBox_KeyDown"/>
+            </StackPanel>
+        </Grid>
+
+
+        <!-- Headers Row -->
+        <Grid Margin="0,0,0,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="SERIAL" Grid.Column="0" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center"/>
+            <TextBlock Text="SUB-INVENTORY" Grid.Column="1" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center"/>
+            <TextBlock Text="DEVICE" Grid.Column="2" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center"/>
+        </Grid>
+
+        <!-- Scrollable serial entry area -->
+        <ScrollViewer Height="200">
+            <StackPanel x:Name="SerialStackPanel"/>
+        </ScrollViewer>
+
+        <!-- Submit button -->
+      
+
+    </StackPanel>
+</UserControl>

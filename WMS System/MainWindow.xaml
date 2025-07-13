@@ -32,10 +32,12 @@
             </Grid.ColumnDefinitions>
 
             <!-- Buttons to change content -->
-            <TextBlock Text="J-WMS" Foreground="White" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Medium" FontFamily="MS Reference Sans Serif" />
-            <Button Content="Home" Click="Home_Click" Background="Transparent" BorderThickness="0" Foreground="White" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="MS Reference Sans Serif"/>
+        
+            
+            <Button Content="Home" Click="Home_Click" Background="Transparent" BorderThickness="0" Foreground="White" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="MS Reference Sans Serif"/>
+            <TextBlock Text="Bom-Wip" Foreground="White" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Medium" FontFamily="MS Reference Sans Serif" />
             <Button Content="Receive" Click="Receive_Click" Background="Transparent" BorderThickness="0"  Foreground="White" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="MS Reference Sans Serif"/>
-            <TextBlock Text="Orders" Foreground="White" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="MS Reference Sans Serif"/>
+            <Button Content="Orders" Click="Order_Click" Background="Transparent" BorderThickness="0"  Foreground="White" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="MS Reference Sans Serif"/>
             <Button Content="Transfer" Click="Transfer_Click" Background="Transparent" BorderThickness="0"  Foreground="White" Grid.Column="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="MS Reference Sans Serif"/>
         </Grid>
 

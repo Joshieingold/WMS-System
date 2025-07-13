@@ -71,7 +71,7 @@
             </StackPanel>
 
             <StackPanel Grid.Column="2">
-                <TextBlock Text="New Location" HorizontalAlignment="Center" Foreground="White"/>
+                <TextBlock Text="New Locator" HorizontalAlignment="Center" Foreground="White"/>
                 <TextBox x:Name="LocationTextBox" Style="{StaticResource InputBoxStyle}" />
             </StackPanel>
         </Grid>

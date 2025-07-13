@@ -54,4 +54,9 @@ public partial class MainWindow : Window
         MainContent.Content = new TransferView();
         FadeInContent();
     }
+    private void Order_Click(object sender, RoutedEventArgs e)
+    {
+        MainContent.Content = new OrderView();
+        FadeInContent();
+    }
 }
