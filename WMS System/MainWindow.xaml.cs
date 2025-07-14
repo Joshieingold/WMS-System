@@ -13,6 +13,7 @@ using Npgsql;
 using WMS_Class_Library;
 using WMS_System.Views;
 
+
 namespace WMS_System;
 
 /// <summary>
@@ -20,9 +21,6 @@ namespace WMS_System;
 /// </summary>
 public partial class MainWindow : Window
 {
-    
-
-    DatabaseConnection databaseConnection = new DatabaseConnection();
     public MainWindow()
     {
         InitializeComponent();

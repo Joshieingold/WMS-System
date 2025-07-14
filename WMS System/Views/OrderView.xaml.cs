@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WMS_Class_Library;
+using WMS_Class_Library.DatabaseClasses;
 
 namespace WMS_System.Views
 {
@@ -23,8 +25,10 @@ namespace WMS_System.Views
         public OrderView()
         {
             InitializeComponent();
-            DataContext = new OrderViewModel();
-        }
 
+            Order myBaby = Database.CreateOrderById(2);
+            myBaby.print();
+
+        }
     }
 }
