@@ -1,6 +1,7 @@
 ﻿using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -80,6 +81,42 @@ namespace WMS_Class_Library.DatabaseClasses
                 }
             }
             return newOrder; 
+        }
+        public static List<int> GetPendingOrders()
+        {
+            List<int> returnList = new List<int>();
+            using var conn = new NpgsqlConnection(ConnectionString);
+            conn.Open();
+            var cmd = new NpgsqlCommand("SELECT order_id FROM pending_orders WHERE status = 'PENDING'", conn);
+            using var reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                int new_id = reader.GetInt32(0);  // Always index 0 because there's only one column
+                returnList.Add(new_id);
+            }
+
+            return returnList;
+        }
+        public static (string locator, string sku, string subInventory) GetSerialDatabaseDetails(string serialNumber)
+        {
+            using var conn = new NpgsqlConnection(ConnectionString);
+            conn.Open();
+            var cmd = new NpgsqlCommand("SELECT locator, device_id, sub_inventory FROM inventory WHERE organization = 'NB1' AND serial = @serialNumber", conn);
+            cmd.Parameters.AddWithValue("serialNumber", serialNumber);
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                string locator = reader.GetString(0);
+                string device_id = (reader.GetInt32(1)).ToString();
+                string sub_inventory = reader.GetString(2);
+
+                return (locator, device_id, sub_inventory);
+                
+            }
+            
+            return ("Error", "Error", "Error");
+
         }
     }
 }
