@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using WMS_Class_Library;
 using WMS_Class_Library.DatabaseClasses;
 using WMS_Class_Library.UIClasses;
+using WMS_System.Components;
 
 namespace WMS_System.Views
 {
@@ -28,8 +29,8 @@ namespace WMS_System.Views
             InitializeComponent();
             List<int> pendingOrders = Database.GetPendingOrders();
             pendingOrderBox.ItemsSource = pendingOrders.Select(id => $"Order #{id}");
-            SerialEntry MyTest = new SerialEntry("TEST", "4093075082100179");
-            MyTest.print();
+            var initialEntry = new SerialEntryUI("Transfer", "4093075082100148");
+            SerialStackPanel.Children.Add(initialEntry);
         }
         private void PendingOrdersListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

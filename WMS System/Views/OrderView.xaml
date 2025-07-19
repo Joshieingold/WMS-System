@@ -20,5 +20,10 @@
             <TextBlock  Text="Choose Your Order" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Grid.Row="0"/>
             <ListBox x:Name="pendingOrderBox" Grid.Row="1" Margin="10" SelectionChanged="PendingOrdersListBox_SelectionChanged"/>
         </Grid>
+        <Grid Grid.Column="1">
+            <StackPanel x:Name="SerialStackPanel" Orientation="Vertical">
+                
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

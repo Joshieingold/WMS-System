@@ -102,13 +102,24 @@ namespace WMS_Class_Library.DatabaseClasses
         {
             using var conn = new NpgsqlConnection(ConnectionString);
             conn.Open();
-            var cmd = new NpgsqlCommand("SELECT locator, device_id, sub_inventory FROM inventory WHERE organization = 'NB1' AND serial = @serialNumber", conn);
+            var cmd = new NpgsqlCommand(@"
+                SELECT 
+                    i.locator, 
+                    d.sku, 
+                    i.sub_inventory 
+                FROM 
+                    inventory i
+                JOIN 
+                    devices d ON i.device_id = d.id
+                WHERE 
+                    i.organization = 'NB1' AND 
+                    i.serial = @serialNumber", conn);
             cmd.Parameters.AddWithValue("serialNumber", serialNumber);
             using var reader = cmd.ExecuteReader();
-            while (reader.Read())
+            if (reader.Read())
             {
                 string locator = reader.GetString(0);
-                string device_id = (reader.GetInt32(1)).ToString();
+                string device_id = reader.GetString(1);
                 string sub_inventory = reader.GetString(2);
 
                 return (locator, device_id, sub_inventory);
